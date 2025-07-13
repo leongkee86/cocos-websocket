@@ -21,6 +21,14 @@ export class WebSocketDemo extends Component
         this.ws.onMessage = ( data : string ) => this.onMessageReceived( data );
     }
 
+    public onEditingReturn()
+    {
+        if (this.sendButton.interactable)
+        {
+            this.clickToSendMessage();
+        }
+    }
+
     public clickToSendMessage()
     {
         let _message = this.messageInputBox.string;
@@ -28,6 +36,12 @@ export class WebSocketDemo extends Component
         {
             this.ws.sendMessage( `[ ${ this.username } ]: ${ _message }` );
             this.messageInputBox.string = "";
+
+            this.scheduleOnce( () =>
+            {
+                this.messageInputBox.focus();
+            },
+            0.1 );
         }
     }
 
