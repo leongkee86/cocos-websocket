@@ -35,18 +35,14 @@ export class WebSocketDemo extends Component
         let _message = this.messageInputBox.string;
         if (_message)
         {
-            this.ws.sendMessage( `[ ${ this.username } ]: ${ _message }` );
             this.sendButton.interactable = false;
+            this.ws.sendMessage( `[ ${ this.username } ]: ${ _message }` );
 
-            this.scheduleOnce( () =>
-            {
-                this.messageInputBox.string = "";
-                this.messageInputBox.focus();
-            },
-            0 );
+            this.messageInputBox.string = "";
+            this.messageInputBox.focus();
         }
     }
-
+    
     public clickToAddNewUser()
     {
         window.open( location.href, '_blank' );
