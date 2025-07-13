@@ -89,6 +89,12 @@ export class WebSocketDemo extends Component
 
     public onTextChanged()
     {
+        if (this.messageInputBox.string === '\n')
+        {
+            this.messageInputBox.string = "";
+            this.messageInputBox.focus();
+        }
+
         this.sendButton.interactable = ( this.messageInputBox.string !== "" );
     }
 }
