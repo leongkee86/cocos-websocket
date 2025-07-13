@@ -10,8 +10,9 @@ export class WebSocketDemo extends Component
     @property(Label) private messagePanelLabel : Label = null;
     @property(Node) private contentNode : Node = null!;
     @property(ScrollView) private scrollView : ScrollView = null;
-    @property(RichText) private usernameLabel : Label = null;
     @property(Button) private sendButton : Button = null;
+    @property(RichText) private usernameLabel : Label = null;
+    @property(RichText) private userCountLabel : Label = null;
 
     private isLoading : boolean = true;
     private username : string = "";
@@ -35,14 +36,20 @@ export class WebSocketDemo extends Component
         if (_message)
         {
             this.ws.sendMessage( `[ ${ this.username } ]: ${ _message }` );
-            this.messageInputBox.string = "";
+            this.sendButton.interactable = false;
 
             this.scheduleOnce( () =>
             {
+                this.messageInputBox.string = "";
                 this.messageInputBox.focus();
             },
-            0.1 );
+            0 );
         }
+    }
+
+    public clickToAddNewUser()
+    {
+        window.open( location.href, '_blank' );
     }
 
     private onMessageReceived( data : string )
@@ -64,7 +71,7 @@ export class WebSocketDemo extends Component
 
             this.scheduleOnce( () =>
             {
-                _contentTransform.setContentSize( _contentTransform.width, _messagePanelLabelTransform.height );
+                _contentTransform.setContentSize( _contentTransform.width, _messagePanelLabelTransform.height + 30 );
                 this.scrollView.scrollToBottom( 0.2, true );
             },
             0 );
@@ -73,6 +80,10 @@ export class WebSocketDemo extends Component
         {
             this.username = _data.data;
             this.usernameLabel.string = `<color=FFC800>Username:</color> <color=FFFFFF>${ this.username }</color>`;
+        }
+        else if (_data.type === "users")
+        {
+            this.userCountLabel.string = `<color=90EE90>Active Users: </color><color=FFFFFF>${ _data.data }</color>`;
         }
     }
 
