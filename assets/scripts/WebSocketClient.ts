@@ -4,7 +4,12 @@ const { ccclass, property } = _decorator;
 @ccclass('WebSocketClient')
 export class WebSocketClient extends Component
 {
-    private socket: WebSocket | null = null;
+    public onOpen?: () => void;
+    public onMessage?: ( data: string ) => void;
+    public onClose?: () => void;
+    public onError?: ( error: Event ) => void;
+
+    private socket : WebSocket | null = null;
 
     start()
     {
@@ -18,22 +23,43 @@ export class WebSocketClient extends Component
         this.socket.onopen = () =>
         {
             console.log( "WebSocket connection opened" );
-            // this.sendMessage('Hello Server!');
+
+            if (this.onOpen)
+            {
+                this.onOpen();
+            }
         };
 
         this.socket.onmessage = ( event ) =>
         {
-            console.log( "Message from server:", event.data);
+            let _message : string = event.data;
+            
+            console.log( "Message from server:", _message );
+
+            if (this.onMessage)
+            {
+                this.onMessage( _message );
+            }
         };
 
         this.socket.onclose = () =>
         {
             console.log( "WebSocket connection closed" );
+
+            if (this.onClose)
+            {
+                this.onClose();
+            }
         };
 
         this.socket.onerror = ( error ) =>
         {
-            console.error( "WebSocket error:", error);
+            console.error( "WebSocket error:", error );
+
+            if (this.onError)
+            {
+                this.onError( error );
+            }
         };
     }
 
