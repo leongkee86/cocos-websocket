@@ -11,9 +11,17 @@ export class WebSocketClient extends Component
 
     private socket : WebSocket | null = null;
 
-    start()
+    async start()
     {
-        this.connectToWebSocket( "ws://localhost:3000" );
+        const _response = await fetch( location.href.replace( "/index.html", "" ) + "/config.json" );
+
+        if (!_response.ok)
+        {
+            throw new Error( "Failed to load config" );
+        }
+
+        let _configData = await _response.json();
+        this.connectToWebSocket( _configData.websocket_url );
     }
 
     connectToWebSocket( url: string )
