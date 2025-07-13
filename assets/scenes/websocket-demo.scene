@@ -529,7 +529,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ActiveUserCount",
+    "_name": "OnlineUserCount",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -587,7 +587,7 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 390.05859375,
+      "width": 400.107421875,
       "height": 88.2
     },
     "_anchorPoint": {
@@ -608,7 +608,7 @@
     "_enabled": true,
     "__prefab": null,
     "_lineHeight": 70,
-    "_string": "<color=90EE90>Active Users: </color><color=FFFFFF>-</color>",
+    "_string": "<color=90EE90>Online Users: </color><color=FFFFFF>-</color>",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_fontSize": 60,

@@ -79,7 +79,7 @@ export class WebSocketDemo extends Component
         }
         else if (_data.type === "users")
         {
-            this.userCountLabel.string = `<color=90EE90>Active Users: </color><color=FFFFFF>${ _data.data }</color>`;
+            this.userCountLabel.string = `<color=90EE90>Online Users: </color><color=FFFFFF>${ _data.data }</color>`;
         }
     }
 
